@@ -8,10 +8,14 @@ public class GuessANumber {
         Random randomNumber = new Random();
         int computerNumber = randomNumber.nextInt(100);
 
-        System.out.println("Level 1");
-        int turnsCounter = 1;
+        System.out.println();
+        System.out.println("Hello, my name is Xela. I thought of a number, can you guess it?");
+        System.out.println(">>>>>>Level 1<<<<<<");
+        int turnsCounter = 10;
         int levelCounter = 1;
-        while (turnsCounter <= 10) {
+        while (turnsCounter > 0) {
+            System.out.println();
+            System.out.printf("You have %d tries%n", turnsCounter);
             System.out.print("Guess a number (1-100): ");
             String playerInput = scanner.nextLine();
             int playerNumber;
@@ -44,23 +48,28 @@ public class GuessANumber {
                     }
                 } else {
                     System.out.println("Invalid number.");
+                    continue;
                 }
 
             } else {
                 System.out.println("Invalid input.");
+                continue;
             }
-            turnsCounter++;
-            if (turnsCounter > 10) {
+            if (turnsCounter == 1) {
                 System.out.println("You lose! Try again.");
             }
+            turnsCounter--;
+            System.out.println();
         }
 
         if (levelCounter == 2) {
-            turnsCounter = 1;
+            turnsCounter = 7;
             System.out.println();
-            System.out.println("Level 2");
+            System.out.println(">>>>>>Level 2<<<<<<");
             computerNumber = randomNumber.nextInt(200);
-            while (turnsCounter <= 7) {
+            while (turnsCounter > 0) {
+                System.out.println();
+                System.out.printf("You have %d tries%n", turnsCounter);
                 System.out.print("Guess a number (1-200): ");
                 String playerInput = scanner.nextLine();
                 int playerNumber;
@@ -89,23 +98,28 @@ public class GuessANumber {
                         }
                     } else {
                         System.out.println("Invalid number.");
+                        continue;
                     }
 
                 } else {
                     System.out.println("Invalid input.");
+                    continue;
                 }
-                turnsCounter++;
-                if (turnsCounter > 7) {
+
+                if (turnsCounter == 1) {
                     System.out.println("You lose! Try again.");
                 }
+                turnsCounter--;
             }
         }
         if (levelCounter == 3) {
-            turnsCounter = 1;
+            turnsCounter = 5;
             System.out.println();
-            System.out.println("Level 3");
+            System.out.println(">>>>>>Level 3<<<<<<");
             computerNumber = randomNumber.nextInt(300);
-            while (turnsCounter <= 5) {
+            while (turnsCounter > 0) {
+                System.out.println();
+                System.out.printf("You have %d tries%n", turnsCounter);
                 System.out.print("Guess a number (1-300): ");
                 String playerInput = scanner.nextLine();
                 int playerNumber;
@@ -124,7 +138,7 @@ public class GuessANumber {
                     if (playerNumber == computerNumber) {
                         System.out.println("You guessed it!");
                         System.out.println();
-                        System.out.println("***Congratulations you win the game!***");
+                        System.out.println("*** GODLIKE!!! Congratulations you win the game! ***");
                         break;
                     }
                     if (playerNumber >= 1 && playerNumber <= 300) {
@@ -135,15 +149,18 @@ public class GuessANumber {
                         }
                     } else {
                         System.out.println("Invalid number.");
+                        continue;
                     }
 
                 } else {
                     System.out.println("Invalid input.");
+                    continue;
                 }
-                turnsCounter++;
-                if (turnsCounter > 5) {
+
+                if (turnsCounter == 1) {
                     System.out.println("You lose! Try again.");
                 }
+                turnsCounter--;
             }
         }
     }
