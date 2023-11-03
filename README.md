@@ -12,5 +12,13 @@ A simple console-based Java game.
  
 <img alt="Image" width="400px" src="assets/images/GuessANumber – Screenshot.png"></img>
 
+## Live Demo
+
+You can try the game directly in your browser here:
+<br>
+<br>
+[![Run on Repl.it](https://replit.com/badge/github/aChaushev/RockPaperScissorsGameBy_aChaushev)](https://replit.com/@aChaushev/RockPaperScissorsGameByaChaushev)
+<br>
+<br>
 • [Source code](https://github.com/aChaushev/GuessANumberBy_aChaushev/blob/main/GuessANumber.java)
 • ***by aChaushev***
