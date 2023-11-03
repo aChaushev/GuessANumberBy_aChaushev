@@ -17,7 +17,7 @@ A simple console-based Java game.
 You can try the game directly in your browser here:
 <br>
 <br>
-[![Run on Repl.it](https://replit.com/badge/github/aChaushev/RockPaperScissorsGameBy_aChaushev)](https://replit.com/@aChaushev/RockPaperScissorsGameByaChaushev)
+[![Run on Repl.it](https://replit.com/badge/github/aChaushev/RockPaperScissorsGameBy_aChaushev)](https://replit.com/@aChaushev/GuessANumberByaChaushev)
 <br>
 <br>
 • [Source code](https://github.com/aChaushev/GuessANumberBy_aChaushev/blob/main/GuessANumber.java)
