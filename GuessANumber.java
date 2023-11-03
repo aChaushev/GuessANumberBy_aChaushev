@@ -18,6 +18,10 @@ public class GuessANumber {
 
             boolean isValid = true;
 
+            if (playerInput.equals("")) {
+                playerInput = "-1";
+            }
+
             for (int i = 0; i <= playerInput.length() - 1; i++) {
                 if (playerInput.charAt(i) < 48 || playerInput.charAt(i) > 57) {
                     isValid = false;
