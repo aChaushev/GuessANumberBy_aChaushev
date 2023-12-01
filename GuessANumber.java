@@ -1,180 +1,93 @@
-import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GuessANumber {
+    private static final int MAX_LEVEL = 3;
+    private static final int[] MAX_TURNS = {10, 7, 5};
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println();
-        System.out.println("Hello, my name is Xela. I thought of a number, can you guess it?");
+        Random randomNumber = new Random();
 
         while (true) {
+            System.out.println("\nHello, my name is Xela. I thought of a number, can you guess it?\n");
 
-            Random randomNumber = new Random();
-            int computerNumber = randomNumber.nextInt(100);
+            for (int currentLevel = 1; currentLevel <= MAX_LEVEL; currentLevel++) {
+                boolean levelUp = playLevel(scanner, randomNumber, currentLevel * 100, MAX_TURNS[currentLevel - 1]);
 
-            System.out.println(">>>>>>Level 1<<<<<<");
-            int turnsCounter = 10;
-            int levelCounter = 1;
-            while (turnsCounter > 0) {
-                System.out.println();
-                System.out.printf("You have %d tries%n", turnsCounter);
-                System.out.print("Guess a number (1-100): ");
-                String playerInput = scanner.nextLine();
-                int playerNumber;
+                if (!levelUp || currentLevel == MAX_LEVEL) {
+                    if (levelUp) {
+                        System.out.println("You guessed it!");
+                        System.out.println("\n*** GODLIKE!!! Congratulations you win the game! ***\n");
+                    }
+                    System.out.println("\nIf you want to play again, press [Enter]");
+                    String userInput = scanner.nextLine();
 
-                boolean isValid = true;
-
-                if (playerInput.equals("")) {
-                    playerInput = "-1";
-                }
-
-                for (int i = 0; i <= playerInput.length() - 1; i++) {
-                    if (playerInput.charAt(i) < 48 || playerInput.charAt(i) > 57) {
-                        isValid = false;
+                    if (userInput.isEmpty()) {
+                        System.out.println("\n<<<<<<<<< NEW GAME >>>>>>>>>\n");
                         break;
-                    }
-                }
-
-                if (isValid) {
-                    playerNumber = Integer.parseInt(playerInput);
-                    if (playerNumber == computerNumber) {
-                        System.out.println("You guessed it! Level up!");
-                        levelCounter++;
-                        break;
-                    }
-                    if (playerNumber >= 1 && playerNumber <= 100) {
-                        if (playerNumber > computerNumber) {
-                            System.out.println("Too High");
-                        } else {
-                            System.out.println("Too Low");
-                        }
                     } else {
-                        System.out.println("Invalid number.");
-                        continue;
+                        System.out.println("Thank you for playing!");
+                        return;
                     }
-
-                } else {
-                    System.out.println("Invalid input.");
-                    continue;
-                }
-                if (turnsCounter == 1) {
-                    System.out.println("You lose! Try again.");
-                }
-                turnsCounter--;
-            }
-
-            if (levelCounter == 2) {
-                turnsCounter = 7;
-                System.out.println();
-                System.out.println(">>>>>>Level 2<<<<<<");
-                computerNumber = randomNumber.nextInt(200);
-                while (turnsCounter > 0) {
-                    System.out.println();
-                    System.out.printf("You have %d tries%n", turnsCounter);
-                    System.out.print("Guess a number (1-200): ");
-                    String playerInput = scanner.nextLine();
-                    int playerNumber;
-
-                    boolean isValid = true;
-
-                    for (int i = 0; i <= playerInput.length() - 1; i++) {
-                        if (playerInput.charAt(i) < 48 || playerInput.charAt(i) > 57) {
-                            isValid = false;
-                            break;
-                        }
-                    }
-
-                    if (isValid) {
-                        playerNumber = Integer.parseInt(playerInput);
-                        if (playerNumber == computerNumber) {
-                            System.out.println("You guessed it! Level up!");
-                            levelCounter++;
-                            break;
-                        }
-                        if (playerNumber >= 1 && playerNumber <= 200) {
-                            if (playerNumber > computerNumber) {
-                                System.out.println("Too High");
-                            } else {
-                                System.out.println("Too Low");
-                            }
-                        } else {
-                            System.out.println("Invalid number.");
-                            continue;
-                        }
-
-                    } else {
-                        System.out.println("Invalid input.");
-                        continue;
-                    }
-
-                    if (turnsCounter == 1) {
-                        System.out.println("You lose! Try again.");
-                    }
-                    turnsCounter--;
                 }
             }
-            if (levelCounter == 3) {
-                turnsCounter = 5;
-                System.out.println();
-                System.out.println(">>>>>>Level 3<<<<<<");
-                computerNumber = randomNumber.nextInt(300);
-                while (turnsCounter > 0) {
-                    System.out.println();
-                    System.out.printf("You have %d tries%n", turnsCounter);
-                    System.out.print("Guess a number (1-300): ");
-                    String playerInput = scanner.nextLine();
-                    int playerNumber;
+        }
+    }
 
-                    boolean isValid = true;
+    private static boolean playLevel(Scanner scanner, Random randomNumber, int maxNumber, int maxTurns) {
+        int computerNumber = randomNumber.nextInt(maxNumber);
 
-                    for (int i = 0; i <= playerInput.length() - 1; i++) {
-                        if (playerInput.charAt(i) < 48 || playerInput.charAt(i) > 57) {
-                            isValid = false;
-                            break;
-                        }
-                    }
+        System.out.printf(">>>>>> Level %d <<<<<<\n\n", maxNumber / 100);
 
-                    if (isValid) {
-                        playerNumber = Integer.parseInt(playerInput);
-                        if (playerNumber == computerNumber) {
-                            System.out.println("You guessed it!");
-                            System.out.println();
-                            System.out.println("*** GODLIKE!!! Congratulations you win the game! ***");
-                            break;
-                        }
-                        if (playerNumber >= 1 && playerNumber <= 300) {
-                            if (playerNumber > computerNumber) {
-                                System.out.println("Too High");
-                            } else {
-                                System.out.println("Too Low");
-                            }
-                        } else {
-                            System.out.println("Invalid number.");
-                            continue;
-                        }
+        for (int turns = maxTurns; turns > 0; turns--) {
+            System.out.printf("You have %d tries%n", turns);
+            int playerNumber = getPlayerInput(scanner, maxNumber);
 
-                    } else {
-                        System.out.println("Invalid input.");
-                        continue;
-                    }
+            if (playerNumber == computerNumber) {
+                if (maxNumber / 100 < MAX_LEVEL) {
+                    System.out.println("You guessed it! Level up!\n");
+                }
+                return true;
+            }
 
-                    if (turnsCounter == 1) {
-                        System.out.println("You lose! Try again.");
-                    }
-                    turnsCounter--;
+            if (playerNumber > computerNumber) {
+                System.out.println("Too High\n");
+            } else {
+                System.out.println("Too Low\n");
+            }
+
+            if (turns == 1) {
+                System.out.println("You lose! Try again.");
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    private static int getPlayerInput(Scanner scanner, int maxNumber) {
+        int playerNumber;
+
+        while (true) {
+            System.out.printf("Guess a number (1-%d): ", maxNumber);
+            String input = scanner.nextLine();
+
+            if (input.isEmpty()) {
+                playerNumber = -1;
+            } else {
+                try {
+                    playerNumber = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    playerNumber = -1;
                 }
             }
 
-            System.out.println();
-            System.out.println("If you want to play again press [Enter]");
-            String playerInput = scanner.nextLine();
-            if(!playerInput.equals("")) {
-                break;
+            if (playerNumber >= 1 && playerNumber <= maxNumber) {
+                return playerNumber;
+            } else {
+                System.out.println("Invalid input. Please enter a valid number.\n");
             }
-            System.out.println("<<<<<<<<< NEW GAME >>>>>>>>>");
-            System.out.println();
         }
     }
 }
